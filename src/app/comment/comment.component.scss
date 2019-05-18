@@ -1,0 +1,11 @@
+#sidebar {
+    display: inline-block;
+    width: 30px;
+}
+
+#main {
+    display: inline-block;
+    width: calc(100% - 30px);
+    padding-left: 10px;
+    padding-top: 10px;
+}

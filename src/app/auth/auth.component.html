@@ -1,0 +1,86 @@
+<div *ngIf="user == null">
+  <div class="row w-100 px-2 m-0 justify-content-end">
+    <button class="col-3 p-0 mx-2 btn" data-toggle="modal" data-target="#loginModal">
+      Login
+    </button>
+    <button class="col-3 p-0 mx-2 btn" data-toggle="modal" data-target="#createAccountModal">
+      Create Account
+    </button>
+  </div>
+</div>
+
+<div *ngIf="user != null">
+  <div class="row w-100 px-2 m-0 justify-content-end">
+    <span class="col-5 align-middle text-right">Logged in as: {{user.name}}</span>
+    <button class="col-3 p-0 mx-2 btn" (click)="logOut()">
+      Log Out
+    </button>
+  </div>
+</div>
+
+
+<div id="loginModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="loginModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="loginModalLabel">Login</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form>
+          <div class="form-group">
+            <label for="username1">Username</label>
+            <input type="text" class="form-control" id="username1" [(ngModel)]="loginUsername"
+              placeholder="Enter username" name="loginUsernameInput">
+          </div>
+          <div class="form-group">
+            <label for="password1">Password</label>
+            <input type="password" class="form-control" id="password1" [(ngModel)]="loginPassword"
+              placeholder="Enter password" name="loginPasswordInput" (keydown.enter)="login()">
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer justify-content-center">
+        <button type="button" class="btn btn-primary col-4" data-dismiss="modal" (click)="login()">
+          Login
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="createAccountModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="loginModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="loginModalLabel">Create Account</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form>
+          <div class="form-group">
+            <label for="username2">Username</label>
+            <input type="text" class="form-control" id="username2" [(ngModel)]="createUsername"
+              name="createUsernameInput" placeholder="Enter username">
+          </div>
+          <div class="form-group">
+            <label for="password2">Password</label>
+            <input type="password" class="form-control" id="password2" [(ngModel)]="createPassword"
+              name="createPasswordInput" placeholder="Enter password">
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer justify-content-center">
+        <button type="button" class="btn btn-primary col-4" data-dismiss="modal" (click)="createUser()">
+          Create User
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

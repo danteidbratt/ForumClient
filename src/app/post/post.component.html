@@ -1,0 +1,36 @@
+<div class="row w-100 m-3">
+
+  <div class="col-1 bg-secondary p-0">
+    <div class="row w-100 m-0">
+      <button [class.selected]="post.myVote == 'UP'" [class.hidden]="post.myVote == 'DOWN'" class="col-12 btn p-0" (click)="upvote()">
+        <i class="material-icons">
+          keyboard_arrow_up
+        </i>
+      </button>
+      <h4 class="col-12 text-center m-0 mb-2">
+          {{post.score}}
+      </h4>
+      <button [class.selected]="post.myVote == 'DOWN'" [class.hidden]="post.myVote == 'UP'" class="col-12 btn p-0" (click)="downvote()">
+        <i class="material-icons">
+          keyboard_arrow_down
+        </i>
+      </button>
+    </div>
+  </div>
+
+  <div class="col-10">
+    <div id="main" class="h-100">
+
+      <div id="title" class="bg-light" (click)="selectPost()">
+        <h5>
+          {{post.title}}
+        </h5>
+      </div>
+
+      <div id="info" class="bg-primary">
+        {{post.timeAgo}}
+      </div>
+
+    </div>
+  </div>
+</div>

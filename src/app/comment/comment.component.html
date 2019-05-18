@@ -1,0 +1,59 @@
+<div id="sidebar">
+  <div class="row w-100 m-0 p-0">
+    <button [class.selected]="comment.myVote == 'UP'" [class.hidden]="comment.myVote == 'DOWN'"
+      class="col-12 btn btn-sm p-0" (click)="upvote()">
+      <i class="material-icons">
+        keyboard_arrow_up
+      </i>
+    </button>
+    <button [class.selected]="comment.myVote == 'DOWN'" [class.hidden]="comment.myVote == 'UP'"
+      class="col-12 btn btn-sm p-0" (click)="downvote()">
+      <i class="material-icons">
+        keyboard_arrow_down
+      </i>
+    </button>
+  </div>
+</div>
+<div id="main" class="">
+  <div class="row">
+    <div class="col-12">
+      <button class="btn btn-sm py-0" (click)="toggleHidden()">[ {{hidden ? '+' : '-'}} ]</button>
+      <a href="users/{{comment.authorUuid}}">{{comment.authorName}}</a>
+      <strong class="mx-3">{{comment.score}} points</strong>
+      <span>posted {{comment.timeAgo}}</span>
+    </div>
+    <div class="col-12">
+      <div class="row" [hidden]="hidden">
+        <span class="col-12">{{comment.content}}</span>
+        <button class="col-1 btn btn-sm" (click)="openReplyModal()">Reply</button>
+        <!-- <button class="col-1 btn btn-sm" data-toggle="modal" data-target="#replyModal">Reply</button> -->
+        <div id="children" class="col-12 p-0" *ngIf="comment.children.length > 0">
+          <div *ngFor="let child of comment.children">
+            <app-comment [comment]="child"></app-comment>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<ng-template #replyModal let-d="dismiss">
+  <div class="modal-header">
+    <h2 class="modal-title" id="modal-basic-title">Reply</h2>
+  </div>
+  <div class="modal-body">
+    <form>
+      <div class="form-group">
+        <label for="replyTextArea">Type your message</label>
+        <textarea class="form-control" id="replyTextArea" rows="3" [(ngModel)]="replyContent"
+          name="replyTextArea"></textarea>
+      </div>
+      <span>{{comment.content}}</span>
+    </form>
+  </div>
+  <div class="modal-footer justify-content-center">
+    <button type="button" class="btn btn-primary col-4" data-dismiss="modal" (click)="d('send')">
+      Send
+    </button>
+  </div>
+</ng-template>

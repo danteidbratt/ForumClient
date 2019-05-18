@@ -1,0 +1,8 @@
+<div class="row" *ngIf="post">
+  <app-post class="col-12" [post]="post"></app-post>
+</div>
+<div class="row border m-3 p-2">
+  <div class="col-12 p-0" *ngFor="let comment of comments">
+    <app-comment [comment]="comment"></app-comment>
+  </div>
+</div>
