@@ -22,20 +22,21 @@
 </div>
 
 <ng-template #replyModal let-d="dismiss" let-c="close">
-  <div class="modal-header darkest">
+  <div class="modal-header darker">
     <h2 class="modal-title" id="modal-basic-title">Reply</h2>
   </div>
-  <div class="modal-body darker">
+  <div class="modal-body dark">
     <form>
       <div class="form-group">
         <label for="replyTextArea">Type your message</label>
         <textarea class="form-control darkest" id="replyTextArea" rows="3" [(ngModel)]="reply"
-          name="replyTextArea"></textarea>
+          name="replyTextArea" (keydown.enter)="c('send');false"></textarea>
       </div>
     </form>
   </div>
-  <div class="modal-footer justify-content-center darkest">
-    <button type="button" class="btn btn-primary col-4" data-dismiss="modal" (click)="c('send')">
+  <div class="modal-footer justify-content-center darker">
+    <button type="button" class="btn btn-primary col-4" (click)="c('send')">
+    <!-- <button type="button" class="btn btn-primary col-4" data-dismiss="modal" (click)="c('send')"> -->
       Send
     </button>
   </div>

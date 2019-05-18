@@ -33,7 +33,7 @@ export class PostviewComponent implements OnInit {
   }
 
   openReplyModal() {
-    this.modal.open(this.replyModal)
+    this.modal.open(this.replyModal, { centered: true })
       .result
       .then(
         result => {
@@ -41,7 +41,7 @@ export class PostviewComponent implements OnInit {
             this.sendReply()
           }
         },
-        reason => console.log('dismiss')
+        reason => this.reply = ''
       )
   }
 

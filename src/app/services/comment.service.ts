@@ -27,7 +27,7 @@ export class CommentService {
       .set('Accept', 'application/json')
       .set('Authorization', this.auth.credentials)
     let params = new HttpParams()
-      .set('sort', 'NEW')
+      .set('sort', 'HOT')
     let url = `${this.baseUrl}/posts/${postUuid}/comments`
     return this.http.get<Comment[]>(url, { headers , params })
   }
