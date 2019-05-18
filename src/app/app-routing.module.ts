@@ -12,7 +12,7 @@ const routes: Routes = [
     component: HomeComponent
   },
   {
-    path: 'feed/:feedFilter',
+    path: 'feed/:filter/:sort',
     component: FeedComponent
   },
   {
@@ -24,12 +24,12 @@ const routes: Routes = [
     component: ProfileComponent
   },
   {
-    path: 'forums',
+    path: 'forums/:filter/:sort',
     component: ForumBrowserComponent
   },
   {
     path: '',
-    redirectTo: 'feed/all',
+    redirectTo: 'feed/all/hot',
     pathMatch: 'full'
   }
 ];

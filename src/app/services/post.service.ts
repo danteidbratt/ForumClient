@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Observable, BehaviorSubject } from 'rxjs';
 import { Post } from '../misc/models';
 import { AppSettings } from '../misc/constants';
@@ -14,26 +14,37 @@ export class PostService {
 
   constructor(private http: HttpClient, private authService: AuthService) { }
 
-  public getAllPosts(): Observable<Post[]> {
+  public getAllPosts(sortType: string): Observable<Post[]> {
     if (this.authService.credentials) {
-      return this.getAllPostsAsUser()
+      return this.getAllPostsAsUser(sortType)
     } else {
-      return this.getAllPostsAsGuest()
+      return this.getAllPostsAsGuest(sortType)
     }
   }
 
-  private getAllPostsAsUser() {
+  public getSubscribedPosts(sortType: string) {
+    let params = new HttpParams().set('sort', sortType)
+    let headers = new HttpHeaders()
+      .set('Accept', 'application/json')
+      .set('Authorization', this.authService.credentials)
+    let url = this.baseUrl + '/posts/subscriptions'
+    return this.http.get<Post[]>(url, { headers, params })
+  }
+
+  private getAllPostsAsUser(sortType: string) {
+    let params = new HttpParams().set('sort', sortType)
     let headers = new HttpHeaders()
       .set('Accept', 'application/json')
       .set('Authorization', this.authService.credentials)
     let url = this.baseUrl + '/posts'
-    return this.http.get<Post[]>(url, { headers })
+    return this.http.get<Post[]>(url, { headers, params })
   }
 
-  private getAllPostsAsGuest(): Observable<Post[]> {
+  private getAllPostsAsGuest(sortType: string): Observable<Post[]> {
+    let params = new HttpParams().set('sort', sortType)
     let headers = new HttpHeaders().set('Accept', 'application/json')
     let url = this.baseUrl + '/posts/guest'
-    return this.http.get<Post[]>(url, { headers })
+    return this.http.get<Post[]>(url, { headers, params })
   }
 
   public getPost(postUuid: string): Observable<Post> {

@@ -1,26 +1,25 @@
-<div class="row w-100 m-0 px-3 darker">
+<div class="row w-100 m-0 px-3 dark">
 
   <div id="feedNav" class="col-12 mt-2">
     <div class="row justify-content-between">
       <div class="col-3 text-left">
-        <span for="filter">Show </span>
-        <select id="filter" class="darkest">
-          <option selected>All</option>
-          <option>Subscribed</option>
-        </select>
+        <div class="row justify-content-start">
+          <button *ngFor="let f of filterTypes" (click)="setFilter(f)" class="col-4 btn darkish p-0 px-1 mx-1"
+          [class.selected]="filter == f">{{f}}</button>
+        </div>
       </div>
-      <div class="col-3 text-center">
-        <span for="sort">Sort by </span>
-        <select id="sort" class="darkest">
-          <option selected>Hot</option>
-          <option>Top</option>
-          <option>New</option>
-        </select>
+      <div class="col-4 text-center">
+        <div class="row justify-content-center">
+          <button *ngFor="let s of sortTypes" (click)="setSortType(s)" class="col-3 btn darkish p-0 px-1 mx-1"
+          [class.selected]="sort == s">{{s}}</button>
+        </div>
       </div>
       <div class="col-3 text-right">
-        <button class="btn btn-sm btn-primary" [routerLink]="['../../forums']">
-          Browse Forums
-        </button>
+        <div class="row justify-content-end">
+          <button class="btn darkish p-0 px-2" (click)="navigateToForums()">
+            Browse Forums
+          </button>
+        </div>
       </div>
     </div>
   </div>

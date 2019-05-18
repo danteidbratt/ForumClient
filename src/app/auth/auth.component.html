@@ -10,9 +10,9 @@
 </div>
 
 <div *ngIf="user != null">
-  <div class="row w-100 px-2 m-0 justify-content-end">
-    <span class="col-5 align-middle text-right">Logged in as: {{user.name}}</span>
-    <button class="col-3 p-0 mx-2 btn" (click)="logOut()">
+  <div class="row w-100 p-0 m-0 justify-content-end">
+    <span class="col-5 text-right">Logged in as: {{user.name}}</span>
+    <button class="col-2 p-0 mx-2 btn btn-sm" (click)="logOut()">
       Log Out
     </button>
   </div>

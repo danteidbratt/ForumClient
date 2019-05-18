@@ -1,3 +1,25 @@
-<p>
-  forum-browser works!
-</p>
+<div id="feedNav" class="col-12 mt-2">
+  <div class="row justify-content-between">
+    <div class="col-3 text-left">
+      <div class="row justify-content-start">
+        <button *ngFor="let f of filterTypes" (click)="setFilter(f)" class="col-4 btn darkish p-0 px-1 mx-1"
+          [class.selected]="filter == f">{{f}}</button>
+      </div>
+    </div>
+    <div class="col-4 text-center">
+      <div class="row justify-content-center">
+        <button *ngFor="let s of sortTypes" (click)="setSortType(s)" class="col-3 btn darkish p-0 px-1 mx-1"
+          [class.selected]="sort == s">{{s}}</button>
+      </div>
+    </div>
+    <div class="col-3 text-right">
+      <div class="row justify-content-end">
+        <!-- <button class="btn darkish p-0 px-2" (click)="navigateToForums()">
+          Browse Forums
+        </button> -->
+      </div>
+    </div>
+  </div>
+</div>
+
+<div *ngFor="let forum of forums">{{forum.name}}</div>
