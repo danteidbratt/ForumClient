@@ -1,4 +1,4 @@
-<div id="base" [class.darker]="layer % 2 == 1" [class.dark]="layer % 2 == 0" class="my-1">
+<div id="base" [class.darker]="layer % 2 == 0" [class.dark]="layer % 2 == 1" class="my-1">
   <div id="sidebar">
     <div class="row w-100 m-0 p-0">
       <button [class.selected]="comment.myVote == 'UP'" [class.hidden]="comment.myVote == 'DOWN'"
@@ -27,7 +27,7 @@
         <div class="row w-100 m-0 p-0" [hidden]="hidden">
           <span class="col-12">{{comment.content}}</span>
           <button class="col-1 btn btn-sm" (click)="openReplyModal()">reply</button>
-          <div id="children" class="col-12 p-0" *ngIf="comment.children.length > 0">
+          <div id="children" class="col-12 p-0 pr-1" *ngIf="comment.children.length > 0">
             <div *ngFor="let child of comment.children">
               <app-comment [comment]="child" [layer]="layer + 1"></app-comment>
             </div>

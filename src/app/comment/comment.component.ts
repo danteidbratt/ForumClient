@@ -24,12 +24,10 @@ export class CommentComponent implements OnInit {
   }
 
   toggleHidden() {
-    console.log(this.comment.uuid)
     this.hidden = !this.hidden
   }
 
   upvote() {
-    console.log(this.comment.uuid)
     if (this.comment.myVote == null) {
       this.commentService.voteOnComment(this.comment.uuid, 'UP').subscribe(() => {
         if (this.comment.myVote == null) {
@@ -59,12 +57,12 @@ export class CommentComponent implements OnInit {
     const modalRef: NgbModalRef = this.modal.open(this.replyModal, { centered: true })
     modalRef.result
       .then(
-        result => console.log('xxx'),
+        result => console.log(result),
         reason => {
           if (reason == 'send') {
             this.sendReply()
           } else {
-            console.log('canceled reply')
+            console.log('Canceled reply')
           }
         }
       )
@@ -87,11 +85,8 @@ export class CommentComponent implements OnInit {
     if (content.length > 0) {
       let parentUuid = this.comment.uuid
       let postUuid = this.route.snapshot.paramMap.get('postUuid')
-      console.log(parentUuid)
       this.commentService.createComment(postUuid, parentUuid, content).subscribe(data => {
-        console.log(data)
         this.comment.children.unshift(data)
-        console.log('Todo: update comment tree in real time?')
       })
     }
   }

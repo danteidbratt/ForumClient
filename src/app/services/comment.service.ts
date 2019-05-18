@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { AuthService } from './auth.service';
 import { Observable } from 'rxjs';
 import { AppSettings } from '../misc/constants';
@@ -26,8 +26,10 @@ export class CommentService {
     let headers = new HttpHeaders()
       .set('Accept', 'application/json')
       .set('Authorization', this.auth.credentials)
+    let params = new HttpParams()
+      .set('sort', 'NEW')
     let url = `${this.baseUrl}/posts/${postUuid}/comments`
-    return this.http.get<Comment[]>(url, { headers })
+    return this.http.get<Comment[]>(url, { headers , params })
   }
 
   private getCommentsByPostAsGuest(postUuid): Observable<Comment[]> {
@@ -47,7 +49,7 @@ export class CommentService {
       parentUuid: parentUuid,
       content: content
     }
-      return this.http.post<Comment>(url, body, { headers })
+    return this.http.post<Comment>(url, body, { headers })
   }
 
   public voteOnComment(commentUuid: string, direction: string): Observable<any> {
@@ -62,7 +64,7 @@ export class CommentService {
   public deleteVoteOnComment(commentUuid: string): Observable<any> {
     let headers = new HttpHeaders()
       .set('Authorization', this.auth.credentials)
-      let url = `${this.baseUrl}/comments/${commentUuid}/vote`
+    let url = `${this.baseUrl}/comments/${commentUuid}/vote`
     return this.http.delete(url, { headers })
   }
 }

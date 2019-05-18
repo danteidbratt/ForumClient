@@ -1,8 +1,42 @@
-<div class="row m-0 p-0" *ngIf="post">
-  <app-post class="col-12 p-0 m-0" [post]="post"></app-post>
-</div>
-<div class="row darker m-0 p-0">
-  <div class="col-12 m-0" *ngFor="let comment of comments">
-    <app-comment [comment]="comment" [layer]="0"></app-comment>
+<div class="dark">
+  <div id="post" *ngIf="post">
+    <div class="row m-0 p-0">
+      <app-post class="col-12 p-3 m-0" [post]="post"></app-post>
+    </div>
+    <div class="row m-0 px-3 mb-4 mt-2 justify-content-center">
+      <div id="content" class="col-12 p-3 darkest">
+        <p>{{post.content}}</p>
+      </div>
+      <div class="col-12 mt-4">
+        <div class="row justify-content-center">
+          <button (click)="openReplyModal()" class="col-3 btn btn-lg btn-primary">Reply</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div id="commentSection" class="row m-0 p-0">
+    <div class="col-12 m-0" *ngFor="let comment of comments">
+      <app-comment [comment]="comment" [layer]="0"></app-comment>
+    </div>
   </div>
 </div>
+
+<ng-template #replyModal let-d="dismiss" let-c="close">
+  <div class="modal-header darkest">
+    <h2 class="modal-title" id="modal-basic-title">Reply</h2>
+  </div>
+  <div class="modal-body darker">
+    <form>
+      <div class="form-group">
+        <label for="replyTextArea">Type your message</label>
+        <textarea class="form-control darkest" id="replyTextArea" rows="3" [(ngModel)]="reply"
+          name="replyTextArea"></textarea>
+      </div>
+    </form>
+  </div>
+  <div class="modal-footer justify-content-center darkest">
+    <button type="button" class="btn btn-primary col-4" data-dismiss="modal" (click)="c('send')">
+      Send
+    </button>
+  </div>
+</ng-template>
