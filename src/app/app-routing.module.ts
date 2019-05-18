@@ -4,6 +4,7 @@ import { HomeComponent } from './home/home.component';
 import { FeedComponent } from './feed/feed.component';
 import { PostviewComponent } from './postview/postview.component';
 import { ProfileComponent } from './profile/profile.component';
+import { ForumBrowserComponent } from './forum-browser/forum-browser.component';
 
 const routes: Routes = [
   {
@@ -11,7 +12,7 @@ const routes: Routes = [
     component: HomeComponent
   },
   {
-    path: 'feed',
+    path: 'feed/:feedFilter',
     component: FeedComponent
   },
   {
@@ -23,8 +24,12 @@ const routes: Routes = [
     component: ProfileComponent
   },
   {
+    path: 'forums',
+    component: ForumBrowserComponent
+  },
+  {
     path: '',
-    redirectTo: 'home',
+    redirectTo: 'feed/all',
     pathMatch: 'full'
   }
 ];

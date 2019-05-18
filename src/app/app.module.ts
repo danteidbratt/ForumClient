@@ -14,6 +14,8 @@ import { PostviewComponent } from './postview/postview.component';
 import { CommentComponent } from './comment/comment.component';
 import { ProfileComponent } from './profile/profile.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { ForumBrowserComponent } from './forum-browser/forum-browser.component';
+import { ForumComponent } from './forum/forum.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +26,9 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     FeedComponent,
     PostviewComponent,
     CommentComponent,
-    ProfileComponent
+    ProfileComponent,
+    ForumBrowserComponent,
+    ForumComponent
   ],
   imports: [
     BrowserModule,

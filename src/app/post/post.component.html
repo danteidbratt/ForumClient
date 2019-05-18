@@ -1,36 +1,39 @@
-<div class="row w-100 m-3">
+<div id="base" class="row w-100 m-0 p-0 pb-2 darkest">
 
-  <div class="col-1 bg-secondary p-0">
-    <div class="row w-100 m-0">
-      <button [class.selected]="post.myVote == 'UP'" [class.hidden]="post.myVote == 'DOWN'" class="col-12 btn p-0" (click)="upvote()">
-        <i class="material-icons">
-          keyboard_arrow_up
-        </i>
-      </button>
-      <h4 class="col-12 text-center m-0 mb-2">
-          {{post.score}}
-      </h4>
-      <button [class.selected]="post.myVote == 'DOWN'" [class.hidden]="post.myVote == 'UP'" class="col-12 btn p-0" (click)="downvote()">
-        <i class="material-icons">
-          keyboard_arrow_down
-        </i>
-      </button>
-    </div>
+  <div id="voteBox" class="col-1 p-0">
+    <i id="upArrow" (click)="upvote()" [class.upvoted]="post.myVote == 'UP'" [class.hidden]="post.myVote == 'DOWN'"
+      class="material-icons">
+      keyboard_arrow_up
+    </i>
+    <span id="score">{{post.score}}</span>
+    <i id="downArrow" (click)="downvote()" [class.downvoted]="post.myVote == 'DOWN'" [class.hidden]="post.myVote == 'UP'"
+      class="material-icons">
+      keyboard_arrow_down
+    </i>
   </div>
 
-  <div class="col-10">
+  <div class="col-11 p-0">
     <div id="main" class="h-100">
-
-      <div id="title" class="bg-light" (click)="selectPost()">
-        <h5>
-          {{post.title}}
-        </h5>
+      <div id="title" class="row w-100 m-0 p-2">
+        <a class="col-12 p-0" href="post/{{post.uuid}}">{{post.title}}</a>
       </div>
-
-      <div id="info" class="bg-primary">
-        {{post.timeAgo}}
+      <div id="info" class="row w-100 p-0 m-0 pl-2">
+        <div class="col-12 p-0">
+          <span>
+            submitted {{post.timeAgo}} by
+            <a href="user/{{post.authorUuid}}">
+              {{post.authorName}}
+            </a>
+            to
+            <a href="forum/{{post.forumUuid}}">
+              {{post.forumName}}
+            </a>
+          </span>
+        </div>
+        <div class="col-12 p-0">
+          <a href="post/{{post.uuid}}"><strong>{{post.commentCount}} comments</strong></a>
+        </div>
       </div>
-
     </div>
   </div>
 </div>

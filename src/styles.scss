@@ -4,10 +4,47 @@
     visibility: hidden;
 }
 
-.selected {
-    color: blue;
+.upvoted {
+    color: orange !important;
+}
+
+.downvoted {
+    color: blue !important;
 }
 
 .selected:hover {
     color: blue !important;
 }
+
+button {
+    color: white !important;
+}
+
+* {
+    color: white;
+}
+
+textarea {
+    color: white !important;
+}
+
+#background {
+    min-height: 100% !important;
+}
+
+.darkish {
+    background-color: rgb(60, 60, 70) !important;
+}
+
+.dark {
+    background-color: rgb(40, 40, 60) !important;
+}
+
+.darker {
+    background-color: rgb(30, 30, 40) !important;
+}
+
+.darkest {
+    background-color: rgb(10, 10, 20) !important;
+}
+

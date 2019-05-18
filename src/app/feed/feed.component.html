@@ -1,5 +1,32 @@
-<div class="row w-100 m-0">
-  <div class="col-12" *ngFor="let post of posts">
+<div class="row w-100 m-0 px-3 darker">
+
+  <div id="feedNav" class="col-12 mt-2">
+    <div class="row justify-content-between">
+      <div class="col-3 text-left">
+        <span for="filter">Show </span>
+        <select id="filter" class="darkest">
+          <option selected>All</option>
+          <option>Subscribed</option>
+        </select>
+      </div>
+      <div class="col-3 text-center">
+        <span for="sort">Sort by </span>
+        <select id="sort" class="darkest">
+          <option selected>Hot</option>
+          <option>Top</option>
+          <option>New</option>
+        </select>
+      </div>
+      <div class="col-3 text-right">
+        <button class="btn btn-sm btn-primary" [routerLink]="['../../forums']">
+          Browse Forums
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div id="posts" class="col-12 p-0 m-0 py-2" *ngFor="let post of posts">
     <app-post [post]="post"></app-post>
   </div>
+
 </div>

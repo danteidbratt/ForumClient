@@ -13,6 +13,7 @@ export class CommentComponent implements OnInit {
 
   @ViewChild('replyModal') replyModal: ElementRef
   @Input() comment: Comment
+  @Input() layer: number
   hidden: boolean = false
   replyContent: string
 
@@ -87,7 +88,9 @@ export class CommentComponent implements OnInit {
       let parentUuid = this.comment.uuid
       let postUuid = this.route.snapshot.paramMap.get('postUuid')
       console.log(parentUuid)
-      this.commentService.createComment(postUuid, parentUuid, content).subscribe(() => {
+      this.commentService.createComment(postUuid, parentUuid, content).subscribe(data => {
+        console.log(data)
+        this.comment.children.unshift(data)
         console.log('Todo: update comment tree in real time?')
       })
     }

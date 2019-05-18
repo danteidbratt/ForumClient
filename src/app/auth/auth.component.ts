@@ -22,13 +22,16 @@ export class AuthComponent implements OnInit {
 
   ngOnInit() {
     this.authService.authUser.subscribe(data => {
-        this.user = data
+      this.user = data
     })
   }
 
   login() {
-    this.authService.login(this.loginUsername, this.loginPassword).subscribe(data => {
-      console.log(data)
+    let username = this.loginUsername;
+    let password = this.loginPassword;
+    this.loginUsername = ''
+    this.loginPassword = ''
+    this.authService.login(username, password).subscribe(data => {
       this.authService.setUser(data)
     })
   }

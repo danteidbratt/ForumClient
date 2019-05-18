@@ -3,6 +3,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { AuthService } from './auth.service';
 import { Observable } from 'rxjs';
 import { AppSettings } from '../misc/constants';
+import { Comment } from '../misc/models';
 
 @Injectable({
   providedIn: 'root'
@@ -32,11 +33,11 @@ export class CommentService {
   private getCommentsByPostAsGuest(postUuid): Observable<Comment[]> {
     let headers = new HttpHeaders()
       .set('Accept', 'application/json')
-    let url = `${this.baseUrl}'/posts/${postUuid}/comments/guest`
+    let url = `${this.baseUrl}/posts/${postUuid}/comments/guest`
     return this.http.get<Comment[]>(url, { headers })
   }
 
-  public createComment(postUuid: string, parentUuid: string, content: string): Observable<any> {
+  public createComment(postUuid: string, parentUuid: string, content: string): Observable<Comment> {
     let url = `${this.baseUrl}/posts/${postUuid}/comments`
     let headers = new HttpHeaders()
       .set('Content-type', 'application/json')
@@ -46,7 +47,7 @@ export class CommentService {
       parentUuid: parentUuid,
       content: content
     }
-      return this.http.post(url, body, { headers })
+      return this.http.post<Comment>(url, body, { headers })
   }
 
   public voteOnComment(commentUuid: string, direction: string): Observable<any> {

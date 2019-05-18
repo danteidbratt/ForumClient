@@ -17,10 +17,6 @@ export class PostComponent implements OnInit {
   ngOnInit() {
   }
 
-  selectPost() {
-    this.router.navigateByUrl(`post/${this.post.uuid}`)
-  }
-
   upvote() {
     if (this.post.myVote == null) {
       this.postService.voteOnPost(this.post.uuid, 'UP').subscribe(() => {
