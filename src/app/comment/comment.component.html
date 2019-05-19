@@ -21,7 +21,7 @@
         <button class="btn btn-sm py-0" (click)="toggleHidden()">[ {{hidden ? '+' : '-'}} ]</button>
         <a href="users/{{comment.authorUuid}}">{{comment.authorName}}</a>
         <strong class="mx-3">{{comment.score}} points</strong>
-        <span>posted {{comment.timeAgo}}</span>
+        <span>posted {{comment.timeAgo}} ago</span>
       </div>
       <div class="col-12 p-0">
         <div class="row w-100 m-0 p-0" [hidden]="hidden">

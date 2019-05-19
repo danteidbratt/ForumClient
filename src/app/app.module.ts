@@ -16,6 +16,7 @@ import { ProfileComponent } from './profile/profile.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ForumBrowserComponent } from './forum-browser/forum-browser.component';
 import { ForumComponent } from './forum/forum.component';
+import { ForumViewComponent } from './forum-view/forum-view.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,8 @@ import { ForumComponent } from './forum/forum.component';
     CommentComponent,
     ProfileComponent,
     ForumBrowserComponent,
-    ForumComponent
+    ForumComponent,
+    ForumViewComponent
   ],
   imports: [
     BrowserModule,

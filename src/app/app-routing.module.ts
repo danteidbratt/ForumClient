@@ -5,6 +5,8 @@ import { FeedComponent } from './feed/feed.component';
 import { PostviewComponent } from './postview/postview.component';
 import { ProfileComponent } from './profile/profile.component';
 import { ForumBrowserComponent } from './forum-browser/forum-browser.component';
+import { ForumComponent } from './forum/forum.component';
+import { ForumViewComponent } from './forum-view/forum-view.component';
 
 const routes: Routes = [
   {
@@ -12,7 +14,7 @@ const routes: Routes = [
     component: HomeComponent
   },
   {
-    path: 'feed/:filter/:sort',
+    path: 'feed/:filter/:sortType',
     component: FeedComponent
   },
   {
@@ -20,12 +22,16 @@ const routes: Routes = [
     component: PostviewComponent
   },
   {
-    path: 'users/:userUuid',
+    path: 'user/:userUuid',
     component: ProfileComponent
   },
   {
-    path: 'forums/:filter/:sort',
+    path: 'forums/:filter/:sortType',
     component: ForumBrowserComponent
+  },
+  {
+    path: 'forum/:forumUuid/:sortType',
+    component: ForumViewComponent
   },
   {
     path: '',

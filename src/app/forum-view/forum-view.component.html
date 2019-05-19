@@ -1,0 +1,23 @@
+<div id="base">
+  <div id="posts" *ngIf="posts">
+    <div class="row m-0 p-0">
+      <app-post class="col-12 p-0 m-0 py-2" *ngFor="let post of posts" [post]="post"></app-post>
+    </div>
+  </div>
+  <div id="forum" *ngIf="forum">
+    <div class="row p-0 m-0">
+      <h5 id="forumName" class="col-12 text-center">{{forum.name}}</h5>
+      <span class="col-12 text-center">{{forum.subscribers}} subscribers</span>
+      <button *ngIf="!forum.subscribed" class="col-12 my-2 btn btn-success">Subscribe</button>
+      <button *ngIf="forum.subscribed" class="col-12 my-2 btn btn-success">Unsubscribe</button>
+      <button class="col-12 my-2 btn btn-primary">Submit Post</button>
+      <p id="description" class="col-12 text-center darkish my-2 py-3">{{forum.description}}</p>
+      <span class="col-12 text-center">Created by
+        <a href="user/{{forum.authorUuid}}">
+          {{forum.authorName}}
+        </a>
+      </span>
+      <span class="col-12 text-center">A community for {{forum.timeAgo}}</span>
+    </div>
+  </div>
+</div>

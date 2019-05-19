@@ -1,0 +1,24 @@
+#base {
+  display: grid;
+  grid-template-columns: 70% 30%;
+  grid-template-rows: 100%;
+  grid-template-areas: 'posts forum';
+
+  #posts {
+    grid-area: posts;
+  }
+
+  #forum {
+    padding: 20px;
+    grid-area: forum;
+    border-radius: 10px;
+  }
+}
+
+#forumName {
+  word-break: break-all;
+}
+
+#description {
+    border-radius: 10px;
+}

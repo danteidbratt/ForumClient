@@ -18,7 +18,6 @@ export class ForumComponent implements OnInit {
 
   subscribe() {
     if (!this.forum.subscribed) {
-      console.log('ja')
       this.forumService.subscribeToForum(this.forum.uuid).subscribe(() => {
         if (!this.forum.subscribed) {
           this.forum.subscribed = true

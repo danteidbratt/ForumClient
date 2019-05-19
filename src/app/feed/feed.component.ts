@@ -13,16 +13,16 @@ export class FeedComponent implements OnInit {
   posts: Post[]
   sortTypes = ['hot', 'top', 'new']
   filterTypes = ['all', 'subs']
-  sort: string
+  sortType: string
   filter: string
 
   constructor(private postService: PostService, private route: ActivatedRoute, private router: Router) { }
 
   ngOnInit() {
-    this.sort = this.route.snapshot.paramMap.get('sort')
+    this.sortType = this.route.snapshot.paramMap.get('sortType')
     this.filter = this.route.snapshot.paramMap.get('filter')
     this.route.params.subscribe(data => {
-      this.sort = data.sort
+      this.sortType = data.sortType
       this.filter = data.filter
       this.loadPosts()
     })
@@ -31,11 +31,11 @@ export class FeedComponent implements OnInit {
 
   loadPosts() {
     if (this.filter == 'all') {
-      this.postService.getAllPosts(this.sort.toUpperCase()).subscribe(resp => {
+      this.postService.getAllPosts(this.sortType.toUpperCase()).subscribe(resp => {
         this.posts = resp
       })
     } else if (this.filter == 'subs') {
-      this.postService.getSubscribedPosts(this.sort.toUpperCase()).subscribe(resp => {
+      this.postService.getSubscribedPosts(this.sortType.toUpperCase()).subscribe(resp => {
         this.posts = resp
       })
     }
@@ -47,7 +47,7 @@ export class FeedComponent implements OnInit {
   }
 
   setFilter(type: string) {
-    this.router.navigateByUrl(`feed/${type}/${this.sort}`)
+    this.router.navigateByUrl(`feed/${type}/${this.sortType}`)
     this.loadPosts()
   }
 

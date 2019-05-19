@@ -12,13 +12,21 @@ export class PostService {
 
   private baseUrl = AppSettings.API_BASE_URL
 
-  constructor(private http: HttpClient, private authService: AuthService) { }
+  constructor(private http: HttpClient, private auth: AuthService) { }
 
   public getAllPosts(sortType: string): Observable<Post[]> {
-    if (this.authService.credentials) {
+    if (this.auth.credentials) {
       return this.getAllPostsAsUser(sortType)
     } else {
       return this.getAllPostsAsGuest(sortType)
+    }
+  }
+
+  public getPostsByForum(forumUuid: string, sortType: string): Observable<Post[]> {
+    if (this.auth.credentials) {
+      return this.getPostsByForumAsUser(forumUuid, sortType)
+    } else {
+      return this.getPostsByForumAsGuest(forumUuid, sortType)
     }
   }
 
@@ -26,8 +34,24 @@ export class PostService {
     let params = new HttpParams().set('sort', sortType)
     let headers = new HttpHeaders()
       .set('Accept', 'application/json')
-      .set('Authorization', this.authService.credentials)
+      .set('Authorization', this.auth.credentials)
     let url = this.baseUrl + '/posts/subscriptions'
+    return this.http.get<Post[]>(url, { headers, params })
+  }
+
+  private getPostsByForumAsUser(forumUuid: string, sortType: string) {
+    let params = new HttpParams().set('sort', sortType)
+    let headers = new HttpHeaders()
+      .set('Accept', 'application/json')
+      .set('Authorization', this.auth.credentials)
+    let url = `${this.baseUrl}/forums/${forumUuid}/posts`
+    return this.http.get<Post[]>(url, { headers, params })
+  }
+
+  private getPostsByForumAsGuest(forumUuid: string, sortType: string): Observable<Post[]> {
+    let params = new HttpParams().set('sort', sortType)
+    let headers = new HttpHeaders().set('Accept', 'application/json')
+    let url = `${this.baseUrl}/forums/${forumUuid}/posts/guest`
     return this.http.get<Post[]>(url, { headers, params })
   }
 
@@ -35,7 +59,7 @@ export class PostService {
     let params = new HttpParams().set('sort', sortType)
     let headers = new HttpHeaders()
       .set('Accept', 'application/json')
-      .set('Authorization', this.authService.credentials)
+      .set('Authorization', this.auth.credentials)
     let url = this.baseUrl + '/posts'
     return this.http.get<Post[]>(url, { headers, params })
   }
@@ -48,7 +72,7 @@ export class PostService {
   }
 
   public getPost(postUuid: string): Observable<Post> {
-    if (this.authService.credentials) {
+    if (this.auth.credentials) {
       return this.getPostAsUser(postUuid)
     } else {
       return this.getPostAsGuest(postUuid)
@@ -64,7 +88,7 @@ export class PostService {
   private getPostAsUser(postUuid: string): Observable<Post> {
     let headers = new HttpHeaders()
     .set('Accept', 'application/json')
-    .set('Authorization', this.authService.credentials)
+    .set('Authorization', this.auth.credentials)
     let url = `${this.baseUrl}/posts/${postUuid}`
     return this.http.get<Post>(url, { headers })
   }
@@ -72,7 +96,7 @@ export class PostService {
   public voteOnPost(postUuid: string, direction: string): Observable<any> {
     let headers = new HttpHeaders()
       .set('Content-Type', 'application/json')
-      .set('Authorization', this.authService.credentials)
+      .set('Authorization', this.auth.credentials)
     let url = this.baseUrl + '/posts/' + postUuid + '/vote'
     let body = { direction }
     return this.http.post(url, body, { headers })
@@ -80,7 +104,7 @@ export class PostService {
 
   public deleteVoteOnPost(postUuid: string): Observable<any> {
     let headers = new HttpHeaders()
-      .set('Authorization', this.authService.credentials)
+      .set('Authorization', this.auth.credentials)
     let url = this.baseUrl + '/posts/' + postUuid + '/vote'
     return this.http.delete(url, { headers })
   }

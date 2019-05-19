@@ -1,11 +1,28 @@
-<div class="row">
-  <div class="col-2 darkish">
+<div id="base" class="row m-3 p-3 darker">
+  <div class="col-2">
     <div class="row">
       <button *ngIf="!forum.subscribed" class="col-12 btn btn-success" (click)="subscribe()">Subscribe</button>
       <button *ngIf="forum.subscribed" class="col-12 btn btn-danger" (click)="unsubscribe()">Unubscribe</button>
     </div>
   </div>
-  <div class="col-10 dark">
-    {{forum.subscribers}}
+  <div class="col-10">
+    <div class="row">
+      <div class="col-12">
+        <h3>
+          <a href="forum/{{forum.uuid}}/hot">{{forum.name}}</a>
+        </h3>
+      </div>
+      <div class="col-12">
+        <p>{{forum.description}}</p>
+      </div>
+      <div class="col-8">
+        <span>
+          Created by
+          <a href="users/{{forum.authorUuid}}">{{forum.authorName}}</a>
+          {{forum.timeAgo}} ago
+        </span>
+      </div>
+      <span class="col-4 text-right">{{forum.subscribers}} subsribers</span>
+    </div>
   </div>
 </div>

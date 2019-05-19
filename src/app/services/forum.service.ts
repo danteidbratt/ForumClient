@@ -49,6 +49,29 @@ export class ForumService {
     return this.http.delete(url, { headers })
   }
 
+  public getForum(forumUuid: string): Observable<Forum> {
+    if (this.auth.credentials) {
+      return this.getForumAsUser(forumUuid)
+    } else {
+      return this.getForumAsGuest(forumUuid)
+    }
+  }
+
+  private getForumAsUser(forumUuid: string): Observable<Forum> {
+    let url = `${this.baseUrl}/forums/${forumUuid}`
+    let headers = new HttpHeaders()
+      .set('Accept', 'application/json')
+      .set('Authorization', this.auth.credentials)
+    return this.http.get<Forum>(url, { headers })
+  }
+
+  private getForumAsGuest(forumUuid: string): Observable<Forum> {
+    let url = `${this.baseUrl}/forums/${forumUuid}/guest`
+    let headers = new HttpHeaders()
+      .set('Accept', 'application/json')
+    return this.http.get<Forum>(url, { headers })
+  }
+
   private getAllForumsAsUser(sortType: string): Observable<Forum[]> {
     let url = `${this.baseUrl}/forums`
     let params = new HttpParams().set('sort', sortType)

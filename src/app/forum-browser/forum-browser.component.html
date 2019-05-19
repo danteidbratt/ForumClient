@@ -1,4 +1,4 @@
-<div id="feedNav" class="col-12 mt-2">
+<div id="feedNav" class="col-12 mt-3 px-5">
   <div class="row justify-content-between">
     <div class="col-3 text-left">
       <div class="row justify-content-start">
@@ -12,11 +12,11 @@
           [class.selected]="sort == s">{{s}}</button>
       </div>
     </div>
-    <div class="col-3 text-right">
+    <div class="col-3">
       <div class="row justify-content-end">
-        <!-- <button class="btn darkish p-0 px-2" (click)="navigateToForums()">
-          Browse Forums
-        </button> -->
+        <button class="col-7 btn darkish p-0 m-0" (click)="navigateToPosts()">
+          Browse Posts
+        </button>
       </div>
     </div>
   </div>
