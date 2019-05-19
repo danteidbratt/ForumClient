@@ -22,4 +22,4 @@
   </div>
 </div>
 
-<div *ngFor="let forum of forums">{{forum.name}}</div>
+<app-forum *ngFor="let forum of forums" [forum]="forum"></app-forum>

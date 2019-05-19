@@ -31,6 +31,24 @@ export class ForumService {
     return this.http.get<Forum[]>(url, { headers, params })
   }
 
+  public subscribeToForum(forumUuid: string): Observable<any> {
+    let url = `${this.baseUrl}/forums/${forumUuid}/subscriptions`
+    let body = {}
+    let headers = new HttpHeaders()
+      .set('Accept', 'application/json')
+      .set('Authorization', this.auth.credentials)
+    return this.http.post(url, body, { headers })
+  }
+
+  public unsubscribeToForum(forumUuid: string) {
+    let url = `${this.baseUrl}/forums/${forumUuid}/subscriptions`
+    let body = {}
+    let headers = new HttpHeaders()
+      .set('Accept', 'application/json')
+      .set('Authorization', this.auth.credentials)
+    return this.http.delete(url, { headers })
+  }
+
   private getAllForumsAsUser(sortType: string): Observable<Forum[]> {
     let url = `${this.baseUrl}/forums`
     let params = new HttpParams().set('sort', sortType)

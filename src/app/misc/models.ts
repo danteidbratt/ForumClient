@@ -14,7 +14,7 @@ export interface Forum {
     name: string,
     description: string,
     subscribers: number,
-    subscribed?: string,
+    subscribed: boolean,
     timeAgo: string
 }
 

@@ -1,3 +1,11 @@
-<p>
-  forum works!
-</p>
+<div class="row">
+  <div class="col-2 darkish">
+    <div class="row">
+      <button *ngIf="!forum.subscribed" class="col-12 btn btn-success" (click)="subscribe()">Subscribe</button>
+      <button *ngIf="forum.subscribed" class="col-12 btn btn-danger" (click)="unsubscribe()">Unubscribe</button>
+    </div>
+  </div>
+  <div class="col-10 dark">
+    {{forum.subscribers}}
+  </div>
+</div>
