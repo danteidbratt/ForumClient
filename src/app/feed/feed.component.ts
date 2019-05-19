@@ -19,14 +19,11 @@ export class FeedComponent implements OnInit {
   constructor(private postService: PostService, private route: ActivatedRoute, private router: Router) { }
 
   ngOnInit() {
-    this.sortType = this.route.snapshot.paramMap.get('sortType')
-    this.filter = this.route.snapshot.paramMap.get('filter')
     this.route.params.subscribe(data => {
       this.sortType = data.sortType
       this.filter = data.filter
       this.loadPosts()
     })
-    this.loadPosts()
   }
 
   loadPosts() {
@@ -43,12 +40,10 @@ export class FeedComponent implements OnInit {
 
   setSortType(type: string) {
     this.router.navigateByUrl(`feed/${this.filter}/${type}`)
-    this.loadPosts()
   }
 
   setFilter(type: string) {
     this.router.navigateByUrl(`feed/${type}/${this.sortType}`)
-    this.loadPosts()
   }
 
   navigateToForums() {

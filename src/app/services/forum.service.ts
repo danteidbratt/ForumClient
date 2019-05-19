@@ -14,6 +14,19 @@ export class ForumService {
 
   constructor(private http: HttpClient, private auth: AuthService) { }
 
+  public createForum(name: string, description: string): Observable<Forum> {
+    let url = `${this.baseUrl}/forums`
+    let headers = new HttpHeaders()
+      .set('Content-type', 'application/json')
+      .set('Accept', 'application/json')
+      .set('Authorization', this.auth.credentials)
+    let body = {
+      name: name,
+      description: description
+    }
+    return this.http.post<Forum>(url, body, { headers })
+  }
+
   public getAllForums(sortType: string): Observable<Forum[]> {
     if (this.auth.credentials) {
       return this.getAllForumsAsUser(sortType)

@@ -1,23 +1,52 @@
 <div id="base">
   <div id="posts" *ngIf="posts">
-    <div class="row m-0 p-0">
-      <app-post class="col-12 p-0 m-0 py-2" *ngFor="let post of posts" [post]="post"></app-post>
+    <div class="row justify-content-center mt-3">
+      <button *ngFor="let s of sortTypes" (click)="setSortType(s)" class="col-2 btn darkish p-0 px-1 mx-1"
+        [class.selected]="sortType == s">{{s}}</button>
+    </div>
+    <div class="row m-0 p-3">
+      <app-post class="col-12 p-0 m-0 py-1" *ngFor="let post of posts" [post]="post"></app-post>
     </div>
   </div>
   <div id="forum" *ngIf="forum">
     <div class="row p-0 m-0">
       <h5 id="forumName" class="col-12 text-center">{{forum.name}}</h5>
       <span class="col-12 text-center">{{forum.subscribers}} subscribers</span>
-      <button *ngIf="!forum.subscribed" class="col-12 my-2 btn btn-success">Subscribe</button>
-      <button *ngIf="forum.subscribed" class="col-12 my-2 btn btn-success">Unsubscribe</button>
-      <button class="col-12 my-2 btn btn-primary">Submit Post</button>
+      <button *ngIf="!forum.subscribed" (click)="subscribe()" class="col-12 my-2 btn btn-success">Subscribe</button>
+      <button *ngIf="forum.subscribed" (click)="unsubscribe()" class="col-12 my-2 btn btn-danger">Unsubscribe</button>
+      <button (click)="openSubmitPostModal()" class="col-12 my-2 btn btn-primary">Submit Post</button>
       <p id="description" class="col-12 text-center darkish my-2 py-3">{{forum.description}}</p>
       <span class="col-12 text-center">Created by
         <a href="user/{{forum.authorUuid}}">
           {{forum.authorName}}
         </a>
       </span>
-      <span class="col-12 text-center">A community for {{forum.timeAgo}}</span>
+      <span class="col-12 text-center">Created {{forum.timeAgo}}</span>
     </div>
   </div>
 </div>
+
+<ng-template #submitPostModal let-d="dismiss" let-c="close">
+  <div class="modal-header darker">
+    <h2 class="modal-title" id="modal-basic-title">Submit Post</h2>
+  </div>
+  <div class="modal-body dark">
+    <form>
+      <div class="form-group">
+        <label for="titleTextArea">Title</label>
+        <textarea class="form-control darkest" id="titleTextArea" rows="3" [(ngModel)]="submissionTitle"
+          name="titleTextArea" (keydown.enter)="c('submit');false"></textarea>
+      </div>
+      <div class="form-group">
+        <label for="contentTextArea">Content</label>
+        <textarea class="form-control darkest" id="contentTextArea" rows="3" [(ngModel)]="submissionContent"
+          name="contentTextArea" (keydown.enter)="c('submit');false"></textarea>
+      </div>
+    </form>
+  </div>
+  <div class="modal-footer justify-content-center darker">
+    <button type="button" class="btn btn-primary col-4" (click)="c('submit')">
+      Submit
+    </button>
+  </div>
+</ng-template>

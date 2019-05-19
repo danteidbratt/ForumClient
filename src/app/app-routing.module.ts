@@ -18,7 +18,7 @@ const routes: Routes = [
     component: FeedComponent
   },
   {
-    path: 'post/:postUuid',
+    path: 'post/:postUuid/:sortType',
     component: PostviewComponent
   },
   {

@@ -11,7 +11,7 @@
       <div class="col-4 text-center">
         <div class="row justify-content-center">
           <button *ngFor="let s of sortTypes" (click)="setSortType(s)" class="col-3 btn darkish p-0 px-1 mx-1"
-            [class.selected]="sort == s">{{s}}</button>
+            [class.selected]="sortType == s">{{s}}</button>
         </div>
       </div>
       <div class="col-3 text-right">

@@ -10,34 +10,36 @@ import { Comment } from '../misc/models';
 })
 export class CommentService {
 
-  
+
   private baseUrl: string = AppSettings.API_BASE_URL
 
   constructor(private http: HttpClient, private auth: AuthService) { }
 
-  public getCommentsByPost(postUuid: string): Observable<Comment[]> {
+  public getCommentsByPost(postUuid: string, sortType: string): Observable<Comment[]> {
     if (this.auth.credentials) {
-      return this.getCommentsByPostAsUser(postUuid)
+      return this.getCommentsByPostAsUser(postUuid, sortType)
     } else {
-      return this.getCommentsByPostAsGuest(postUuid)
+      return this.getCommentsByPostAsGuest(postUuid, sortType)
     }
   }
 
-  private getCommentsByPostAsUser(postUuid): Observable<Comment[]> {
+  private getCommentsByPostAsUser(postUuid: string, sortType: string): Observable<Comment[]> {
     let headers = new HttpHeaders()
       .set('Accept', 'application/json')
       .set('Authorization', this.auth.credentials)
     let params = new HttpParams()
-      .set('sort', 'HOT')
+      .set('sort', sortType)
     let url = `${this.baseUrl}/posts/${postUuid}/comments`
-    return this.http.get<Comment[]>(url, { headers , params })
+    return this.http.get<Comment[]>(url, { headers, params })
   }
 
-  private getCommentsByPostAsGuest(postUuid): Observable<Comment[]> {
+  private getCommentsByPostAsGuest(postUuid: string, sortType: string): Observable<Comment[]> {
     let headers = new HttpHeaders()
       .set('Accept', 'application/json')
+      let params = new HttpParams()
+      .set('sort', sortType)
     let url = `${this.baseUrl}/posts/${postUuid}/comments/guest`
-    return this.http.get<Comment[]>(url, { headers })
+    return this.http.get<Comment[]>(url, { headers, params })
   }
 
   public createComment(postUuid: string, parentUuid: string, content: string): Observable<Comment> {

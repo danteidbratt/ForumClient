@@ -12,17 +12,17 @@
           <a href="forum/{{forum.uuid}}/hot">{{forum.name}}</a>
         </h3>
       </div>
-      <div class="col-12">
+      <div id="description" class="col-12 p-2 pl-3">
         <p>{{forum.description}}</p>
       </div>
       <div class="col-8">
         <span>
           Created by
           <a href="users/{{forum.authorUuid}}">{{forum.authorName}}</a>
-          {{forum.timeAgo}} ago
+          {{forum.timeAgo}}
         </span>
       </div>
-      <span class="col-4 text-right">{{forum.subscribers}} subsribers</span>
+      <span class="col-4 text-right">{{forum.subscribers}} subscribers</span>
     </div>
   </div>
 </div>

@@ -14,6 +14,19 @@ export class PostService {
 
   constructor(private http: HttpClient, private auth: AuthService) { }
 
+  public submitPost(forumUuid: string, title: string, content: string): Observable<Post> {
+    let url = `${this.baseUrl}/forums/${forumUuid}/posts`
+    let headers = new HttpHeaders()
+      .set('Content-type', 'application/json')
+      .set('Accept', 'application/json')
+      .set('Authorization', this.auth.credentials)
+    let body = {
+      title: title,
+      content: content
+    }
+    return this.http.post<Post>(url, body, { headers })
+  }
+
   public getAllPosts(sortType: string): Observable<Post[]> {
     if (this.auth.credentials) {
       return this.getAllPostsAsUser(sortType)

@@ -1,19 +1,24 @@
-<div id="feedNav" class="col-12 mt-3 px-5">
+<div id="feedNav" class="col-12 mt-3 px-3">
   <div class="row justify-content-between">
     <div class="col-3 text-left">
-      <div class="row justify-content-start">
+      <div class="row justify-content-center">
         <button *ngFor="let f of filterTypes" (click)="setFilter(f)" class="col-4 btn darkish p-0 px-1 mx-1"
           [class.selected]="filter == f">{{f}}</button>
       </div>
     </div>
-    <div class="col-4 text-center">
+    <div class="col-3 text-center">
       <div class="row justify-content-center">
         <button *ngFor="let s of sortTypes" (click)="setSortType(s)" class="col-3 btn darkish p-0 px-1 mx-1"
-          [class.selected]="sort == s">{{s}}</button>
+          [class.selected]="sortType == s">{{s}}</button>
       </div>
     </div>
     <div class="col-3">
-      <div class="row justify-content-end">
+      <div class="row justify-content-center">
+        <button (click)="openCreateForumModal()" class="col-8 btn btn-primary p-0 px-1 mx-1">Create Forum</button>
+      </div>
+    </div>
+    <div class="col-3">
+      <div class="row justify-content-center">
         <button class="col-7 btn darkish p-0 m-0" (click)="navigateToPosts()">
           Browse Posts
         </button>
@@ -23,3 +28,29 @@
 </div>
 
 <app-forum *ngFor="let forum of forums" [forum]="forum"></app-forum>
+
+<ng-template #createForumModal let-d="dismiss" let-c="close">
+    <div class="modal-header darker">
+      <h2 class="modal-title" id="modal-basic-title">Create Forum</h2>
+    </div>
+    <div class="modal-body dark">
+      <form>
+        <div class="form-group">
+          <label for="nameTextArea">Forum Name</label>
+          <textarea class="form-control darkest" id="nameTextArea" rows="3" [(ngModel)]="newName"
+            name="nameTextArea" (keydown.enter)="c('create');false"></textarea>
+        </div>
+        <div class="form-group">
+          <label for="descriptionTextArea">Description</label>
+          <textarea class="form-control darkest" id="descriptionTextArea" rows="3" [(ngModel)]="newDescription"
+            name="descriptionTextArea" (keydown.enter)="c('create');false" placeholder="What is your forum about?"></textarea>
+        </div>
+      </form>
+    </div>
+    <div class="modal-footer justify-content-center darker">
+      <button type="button" class="btn btn-primary col-4" (click)="c('create')">
+        Create
+      </button>
+    </div>
+  </ng-template>
+  

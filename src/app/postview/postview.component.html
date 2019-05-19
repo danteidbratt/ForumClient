@@ -4,8 +4,8 @@
       <app-post class="col-12 p-3 m-0" [post]="post"></app-post>
     </div>
     <div class="row m-0 px-3 mb-4 mt-2 justify-content-center">
-      <div id="content" class="col-12 p-3 darkest">
-        <p>{{post.content}}</p>
+      <div id="content" class="col-12 px-4 py-3 darkest">
+        <span>{{post.content}}</span>
       </div>
       <div class="col-12 mt-4">
         <div class="row justify-content-center">
@@ -14,7 +14,13 @@
       </div>
     </div>
   </div>
-  <div id="commentSection" class="row m-0 p-0">
+  <div id="commentSection" class="row m-0 p-0 pb-3">
+    <div class="col-12 mb-3">
+      <div class="row justify-content-center">
+        <button *ngFor="let s of sortTypes" (click)="setSortType(s)" class="col-2 btn darkish p-0 px-1 mx-1"
+          [class.selected]="sortType == s">{{s}}</button>
+      </div>
+    </div>
     <div class="col-12 m-0" *ngFor="let comment of comments">
       <app-comment [comment]="comment" [layer]="0"></app-comment>
     </div>
@@ -29,8 +35,8 @@
     <form>
       <div class="form-group">
         <label for="replyTextArea">Type your message</label>
-        <textarea class="form-control darkest" id="replyTextArea" rows="3" [(ngModel)]="reply"
-          name="replyTextArea" (keydown.enter)="c('send');false"></textarea>
+        <textarea class="form-control darkest" id="replyTextArea" rows="3" [(ngModel)]="reply" name="replyTextArea"
+          (keydown.enter)="c('send');false"></textarea>
       </div>
     </form>
   </div>
