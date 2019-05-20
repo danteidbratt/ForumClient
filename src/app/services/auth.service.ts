@@ -51,15 +51,12 @@ export class AuthService {
       name: user.name
     })
     this.cookies.set('authUser', JSON.stringify(user))
-    this.cookies.set('username', user.name)
-    this.cookies.set('userUuid', user.uuid)
   }
 
   private resetCredentials() {
     this.credentials = null
     this.authUser.next(null)
-    this.cookies.delete('username')
-    this.cookies.delete('userUuid')
+    this.cookies.delete('authUser')
     this.cookies.delete('credentials')
   }
 }

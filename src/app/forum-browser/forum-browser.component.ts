@@ -28,8 +28,6 @@ export class ForumBrowserComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.sort = this.route.snapshot.paramMap.get('sortType')
-    this.filter = this.route.snapshot.paramMap.get('filter')
     this.route.params.subscribe(data => {
       this.sort = data.sortType
       this.filter = data.filter

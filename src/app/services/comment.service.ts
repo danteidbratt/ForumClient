@@ -23,22 +23,53 @@ export class CommentService {
     }
   }
 
-  private getCommentsByPostAsUser(postUuid: string, sortType: string): Observable<Comment[]> {
+  public getCommentsByAuthor(authorUuid: string, sortType): Observable<Comment[]> {
+    if (this.auth.credentials) {
+      return this.getCommentsByAuthorAsUser(authorUuid, sortType)
+    } else {
+      return this.getCommentsByAuthorAsGuest(authorUuid, sortType)
+    }
+  }
+
+  public getLikedComments(likerUuid: string, sortType): Observable<Comment[]> {
+    if (this.auth.credentials) {
+      return this.getLikedCommentsAsUser(likerUuid, sortType)
+    } else {
+      return this.getLikedCommentsAsGuest(likerUuid, sortType)
+    }
+  }
+
+  private getLikedCommentsAsUser(authorUuid: string, sortType): Observable<Comment[]> {
+    let params = new HttpParams().set('sort', sortType)
     let headers = new HttpHeaders()
       .set('Accept', 'application/json')
       .set('Authorization', this.auth.credentials)
-    let params = new HttpParams()
-      .set('sort', sortType)
-    let url = `${this.baseUrl}/posts/${postUuid}/comments`
+    let url = `${this.baseUrl}/users/${authorUuid}/likes/comments`
     return this.http.get<Comment[]>(url, { headers, params })
   }
 
-  private getCommentsByPostAsGuest(postUuid: string, sortType: string): Observable<Comment[]> {
+  private getLikedCommentsAsGuest(authorUuid: string, sortType): Observable<Comment[]> {
+    let params = new HttpParams().set('sort', sortType)
     let headers = new HttpHeaders()
       .set('Accept', 'application/json')
-      let params = new HttpParams()
-      .set('sort', sortType)
-    let url = `${this.baseUrl}/posts/${postUuid}/comments/guest`
+    let url = `${this.baseUrl}/users/${authorUuid}/likes/comments/guest`
+    return this.http.get<Comment[]>(url, { headers, params })
+  }
+
+  private getCommentsByAuthorAsUser(authorUuid: string, sortType): Observable<Comment[]> {
+    let params = new HttpParams().set('sort', sortType)
+    let headers = new HttpHeaders()
+      .set('Accept', 'application/json')
+      .set('Authorization', this.auth.credentials)
+    let url = `${this.baseUrl}/users/${authorUuid}/comments`
+    return this.http.get<Comment[]>(url, { headers, params })
+  }
+
+  private getCommentsByAuthorAsGuest(authorUuid: string, sortType): Observable<Comment[]> {
+    let params = new HttpParams().set('sort', sortType)
+    let headers = new HttpHeaders()
+      .set('Accept', 'application/json')
+    let url = `${this.baseUrl}/users/${authorUuid}/posts/guest`
     return this.http.get<Comment[]>(url, { headers, params })
   }
 
@@ -69,5 +100,24 @@ export class CommentService {
       .set('Authorization', this.auth.credentials)
     let url = `${this.baseUrl}/comments/${commentUuid}/vote`
     return this.http.delete(url, { headers })
+  }
+
+  private getCommentsByPostAsUser(postUuid: string, sortType: string): Observable<Comment[]> {
+    let headers = new HttpHeaders()
+      .set('Accept', 'application/json')
+      .set('Authorization', this.auth.credentials)
+    let params = new HttpParams()
+      .set('sort', sortType)
+    let url = `${this.baseUrl}/posts/${postUuid}/comments`
+    return this.http.get<Comment[]>(url, { headers, params })
+  }
+
+  private getCommentsByPostAsGuest(postUuid: string, sortType: string): Observable<Comment[]> {
+    let headers = new HttpHeaders()
+      .set('Accept', 'application/json')
+      let params = new HttpParams()
+      .set('sort', sortType)
+    let url = `${this.baseUrl}/posts/${postUuid}/comments/guest`
+    return this.http.get<Comment[]>(url, { headers, params })
   }
 }

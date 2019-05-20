@@ -1,3 +1,41 @@
-<p *ngIf="user">
-  {{user.name}}
-</p>
+<div class="row">
+  <div *ngIf="user" class="col-12">
+    <div class="row justify-content-center">
+      <div id="user" class="col-6 darker my-4 py-4">
+        <div class="row">
+          <h5 class="col-6 text-right">Username:</h5>
+          <h5 class="col-6 text-left">{{user.name}}</h5>
+          <h5 class="col-6 text-right">Carma:</h5>
+          <h5 class="col-6 text-left">{{user.carma}}</h5>
+          <h5 class="col-6 text-right">Signed up:</h5>
+          <h5 class="col-6 text-left">{{user.timeAgo}}</h5>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-12">
+    <div class="row justify-content-around">
+      <button *ngFor="let c of categories" (click)="setCategory(c)" class="col-4 btn darkish"
+        [class.selected]="category == c">{{c}}</button>
+    </div>
+    <div *ngIf="category" class="row my-3" [class.justify-content-begining]="category == 'submissions'"
+      [class.justify-content-end]="category == 'likes'">
+      <div class="col-6">
+        <div class="row justify-content-center">
+          <button *ngFor="let s of submissionTypes" (click)="setSubmissionType(s)" class="col-4 mx-2 btn darkish"
+            [class.selected]="submissionType == s">{{s}}</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div *ngIf="category && submissionType" class="row justify-content-center mt-2">
+    <button *ngFor="let s of sortTypes" (click)="setSortType(s)" class="col-2 btn darkish p-0 px-1 mx-1"
+      [class.selected]="sortType == s">{{s}}</button>
+  </div>
+  <div *ngIf="posts" class="row p-4">
+    <app-post *ngFor="let post of posts" [post]="post" class="col-12 p-0 m-0 py-2"></app-post>
+  </div>
+  <div *ngIf="comments" class="row p-4">
+    <app-comment id="comment" *ngFor="let comment of comments" [comment]="comment" class="col-12 p-0 m-0 my-2 p-2 darker"></app-comment>
+  </div>
+</div>

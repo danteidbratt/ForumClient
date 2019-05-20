@@ -13,26 +13,21 @@ export class UserService {
 
   constructor(private http: HttpClient) { }
 
-  public createUser(username: string, password: string): Observable<any> {
+  public createUser(username: string, password: string): Observable<User> {
+    let url = `${this.baseUrl}/users`
+    let headers = new HttpHeaders()
+      .set('Content-Type', 'application/json')
+      .set('Accept', 'application/json')
     let body = {
       username: username,
       password: password
     }
-
-    return this.http.post(
-      this.baseUrl + "/users",
-      body, 
-      { 
-        headers: new HttpHeaders({
-          'Content-Type': 'application/json',
-          'Accept': 'application/json'
-        })
-      })
+    return this.http.post<User>(url, body, { headers })
   }
 
   public getUser(userUuid: string): Observable<User> {
     let headers = new HttpHeaders()
-    .set('Accept', 'application/json')
+      .set('Accept', 'application/json')
     let url = `${this.baseUrl}/users/${userUuid}`
     return this.http.get<User>(url, { headers })
   }

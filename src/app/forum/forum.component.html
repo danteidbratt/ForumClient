@@ -1,8 +1,8 @@
-<div id="base" class="row m-3 p-3 darker">
-  <div class="col-2">
+<div id="base" class="row p-3 darker">
+  <div class="col-2 p-0">
     <div class="row">
-      <button *ngIf="!forum.subscribed" class="col-12 btn btn-success" (click)="subscribe()">Subscribe</button>
-      <button *ngIf="forum.subscribed" class="col-12 btn btn-danger" (click)="unsubscribe()">Unsubscribe</button>
+      <button *ngIf="!forum.subscribed" class="col-12 p-0 py-2 btn btn-success" (click)="subscribe()">Subscribe</button>
+      <button *ngIf="forum.subscribed" class="col-12 p-0 py-2 btn btn-danger" (click)="unsubscribe()">Unsubscribe</button>
     </div>
   </div>
   <div class="col-10">
@@ -18,7 +18,7 @@
       <div class="col-8">
         <span>
           Created by
-          <a href="users/{{forum.authorUuid}}">{{forum.authorName}}</a>
+          <a href="user/{{forum.authorUuid}}/submissions/posts/new">{{forum.authorName}}</a>
           {{forum.timeAgo}}
         </span>
       </div>

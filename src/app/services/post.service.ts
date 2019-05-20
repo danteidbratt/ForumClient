@@ -52,6 +52,58 @@ export class PostService {
     return this.http.get<Post[]>(url, { headers, params })
   }
 
+  public getPostsByAuthor(authorUuid: string, sortType: string): Observable<Post[]> {
+    if (this.auth.credentials) {
+      return this.getPostsByAuthorAsUser(authorUuid, sortType)
+    } else {
+      return this.getPostsByAuthorAsGuest(authorUuid, sortType)
+    }
+  }
+
+  public getLikedPosts(likerUuid: string, sortType: string): Observable<Post[]> {
+    if (this.auth.credentials) {
+      return this.getLikedPostsAsUser(likerUuid, sortType)
+    } else {
+      return this.getLikedPostsAsGuest(likerUuid, sortType)
+    }
+  }
+
+  public getLikedPostsAsUser(likerUuid: string, sortType: string): Observable<Post[]> {
+    let params = new HttpParams().set('sort', sortType)
+    let headers = new HttpHeaders()
+      .set('Accept', 'application/json')
+      .set('Authorization', this.auth.credentials)
+    let url = `${this.baseUrl}/users/${likerUuid}/likes/posts`
+    return this.http.get<Post[]>(url, { headers, params })
+  }
+
+  public getLikedPostsAsGuest(likerUuid: string, sortType: string): Observable<Post[]> {
+    let params = new HttpParams().set('sort', sortType)
+    let headers = new HttpHeaders()
+      .set('Accept', 'application/json')
+    let url = `${this.baseUrl}/users/${likerUuid}/likes/posts/guest`
+    return this.http.get<Post[]>(url, { headers, params })
+  }
+
+  private getPostsByAuthorAsUser(authorUuid: string, sortType: string): Observable<Post[]> {
+    let params = new HttpParams().set('sort', sortType)
+    let headers = new HttpHeaders()
+      .set('Accept', 'application/json')
+      .set('Authorization', this.auth.credentials)
+    let url = `${this.baseUrl}/users/${authorUuid}/posts`
+    return this.http.get<Post[]>(url, { headers, params })
+  }
+
+  private getPostsByAuthorAsGuest(authorUuid: string, sortType: string): Observable<Post[]> {
+    let params = new HttpParams().set('sort', sortType)
+    let headers = new HttpHeaders()
+      .set('Accept', 'application/json')
+    let url = `${this.baseUrl}/users/${authorUuid}/posts/guest`
+    return this.http.get<Post[]>(url, { headers, params })
+  }
+
+
+
   private getPostsByForumAsUser(forumUuid: string, sortType: string) {
     let params = new HttpParams().set('sort', sortType)
     let headers = new HttpHeaders()

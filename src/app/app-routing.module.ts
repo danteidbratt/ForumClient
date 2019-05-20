@@ -22,7 +22,7 @@ const routes: Routes = [
     component: PostviewComponent
   },
   {
-    path: 'user/:userUuid',
+    path: 'user/:userUuid/:category/:submissionType/:sortType',
     component: ProfileComponent
   },
   {
