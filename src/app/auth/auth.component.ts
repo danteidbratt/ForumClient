@@ -3,6 +3,7 @@ import { AuthService } from '../services/auth.service';
 import { UserService } from '../services/user.service';
 import { AuthUser } from '../misc/models';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-auth',
@@ -22,7 +23,8 @@ export class AuthComponent implements OnInit {
   constructor(
     private auth: AuthService,
     private userService: UserService,
-    private modal: NgbModal
+    private modal: NgbModal,
+    private router: Router
   ) { }
 
   ngOnInit() {
@@ -35,6 +37,7 @@ export class AuthComponent implements OnInit {
   login() {
     this.auth.login(this.loginUsername, this.loginPassword).subscribe(data => {
       this.auth.setUser(data)
+      location.reload()
     })
   }
 
@@ -82,6 +85,7 @@ export class AuthComponent implements OnInit {
 
   logOut() {
     this.auth.logOut()
+    location.reload()
   }
 
 }
