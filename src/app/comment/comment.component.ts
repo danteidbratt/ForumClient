@@ -3,6 +3,7 @@ import { CommentService } from '../services/comment.service';
 import { ActivatedRoute } from '@angular/router';
 import { Comment } from '../misc/models';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
+import { AuthService } from '../services/auth.service';
 
 @Component({
   selector: 'app-comment',
@@ -17,7 +18,13 @@ export class CommentComponent implements OnInit {
   hidden: boolean = false
   replyContent: string
 
-  constructor(private commentService: CommentService, private route: ActivatedRoute, private modal: NgbModal) { }
+  constructor(
+    private commentService: CommentService,
+    private auth: AuthService,
+    private route: ActivatedRoute,
+    private modal: NgbModal
+  ) { }
+
 
   ngOnInit() {
 
@@ -28,6 +35,9 @@ export class CommentComponent implements OnInit {
   }
 
   upvote() {
+    if (!this.auth.demandLogin()) {
+      return
+    }
     if (this.comment.myVote == null) {
       this.commentService.voteOnComment(this.comment.uuid, 'UP').subscribe(() => {
         if (this.comment.myVote == null) {
@@ -41,6 +51,9 @@ export class CommentComponent implements OnInit {
   }
 
   downvote() {
+    if (!this.auth.demandLogin()) {
+      return
+    }
     if (this.comment.myVote == null) {
       this.commentService.voteOnComment(this.comment.uuid, 'DOWN').subscribe(() => {
         if (this.comment.myVote != 'DOWN') {
@@ -54,16 +67,15 @@ export class CommentComponent implements OnInit {
   }
 
   openReplyModal() {
-    const modalRef: NgbModalRef = this.modal.open(this.replyModal, { centered: true })
-    modalRef.result
-      .then(
+    if (!this.auth.demandLogin()) {
+      return
+    }
+    this.modal.open(this.replyModal, { centered: true })
+      .result.then(
         result => {
           if (result == 'send') {
             this.sendReply()
           }
-        },
-        reason => {
-          console.log('Canceled reply')
         }
       )
   }
@@ -78,9 +90,6 @@ export class CommentComponent implements OnInit {
   }
 
   sendReply() {
-    if (!this.replyContent) {
-      return
-    }
     let content = this.replyContent.trim()
     if (content.length > 0) {
       let parentUuid = this.comment.uuid

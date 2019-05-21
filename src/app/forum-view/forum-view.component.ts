@@ -4,6 +4,7 @@ import { PostService } from '../services/post.service';
 import { ForumService } from '../services/forum.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { AuthService } from '../services/auth.service';
 
 @Component({
   selector: 'app-forum-view',
@@ -24,6 +25,7 @@ export class ForumViewComponent implements OnInit {
   constructor(
     private postService: PostService,
     private forumService: ForumService,
+    private auth: AuthService,
     private route: ActivatedRoute,
     private router: Router,
     private modal: NgbModal
@@ -53,6 +55,9 @@ export class ForumViewComponent implements OnInit {
   }
 
   subscribe() {
+    if (!this.auth.demandLogin()) {
+      return
+    }
     if (!this.forum.subscribed) {
       this.forumService.subscribeToForum(this.forum.uuid).subscribe(() => {
         if (!this.forum.subscribed) {
@@ -75,6 +80,9 @@ export class ForumViewComponent implements OnInit {
   }
 
   openSubmitPostModal() {
+    if (!this.auth.demandLogin()) {
+      return
+    }
     this.modal.open(this.submitPostModal, { centered: true })
       .result.then(
         result => {
@@ -82,8 +90,11 @@ export class ForumViewComponent implements OnInit {
             this.submitPost()
           }
         },
-        reason => console.log('Canceled post submission')
-      )
+        () => { }
+      ).then(() => {
+        this.submissionTitle = ''
+        this.submissionContent = ''
+      })
   }
 
   submitPost() {
@@ -91,13 +102,11 @@ export class ForumViewComponent implements OnInit {
       this.submissionTitle = this.submissionTitle.trim()
       this.submissionContent = this.submissionContent.trim()
       if (this.submissionTitle.length > 0 && this.submissionContent.length > 0) {
-        this.postService.submitPost(this.forumUuid, this.submissionTitle, this.submissionContent).subscribe(data => 
+        this.postService.submitPost(this.forumUuid, this.submissionTitle, this.submissionContent).subscribe(data =>
           this.posts.unshift(data)
         )
       }
     }
-    this.submissionTitle = null
-    this.submissionContent = null
   }
 
 }

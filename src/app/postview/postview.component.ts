@@ -4,6 +4,7 @@ import { CommentService } from '../services/comment.service';
 import { Post, Comment } from '../misc/models';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { AuthService } from '../services/auth.service';
 
 @Component({
   selector: 'app-postview',
@@ -25,7 +26,8 @@ export class PostviewComponent implements OnInit {
     private commentService: CommentService,
     private route: ActivatedRoute,
     private router: Router,
-    private modal: NgbModal
+    private modal: NgbModal,
+    private auth: AuthService
   ) { }
 
   ngOnInit() {
@@ -38,6 +40,9 @@ export class PostviewComponent implements OnInit {
   }
 
   openReplyModal() {
+    if (!this.auth.demandLogin()) {
+      return
+    }
     this.modal.open(this.replyModal, { centered: true })
       .result
       .then(
@@ -46,8 +51,10 @@ export class PostviewComponent implements OnInit {
             this.sendReply()
           }
         },
-        reason => this.reply = ''
-      )
+        () => { }
+      ).then(() => {
+        this.reply = ''
+      })
   }
 
   sendReply() {
@@ -57,7 +64,6 @@ export class PostviewComponent implements OnInit {
         this.comments.unshift(data)
       )
     }
-    this.reply = ''
   }
 
   setSortType(type: string) {

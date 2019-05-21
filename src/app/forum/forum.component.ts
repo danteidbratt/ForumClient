@@ -1,6 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Forum } from '../misc/models';
 import { ForumService } from '../services/forum.service';
+import { AuthService } from '../services/auth.service';
 
 @Component({
   selector: 'app-forum',
@@ -11,12 +12,18 @@ export class ForumComponent implements OnInit {
 
   @Input() forum: Forum
 
-  constructor(private forumService: ForumService) { }
+  constructor(
+    private forumService: ForumService,
+    private auth: AuthService
+  ) { }
 
   ngOnInit() {
   }
 
   subscribe() {
+    if (!this.auth.demandLogin()) {
+      return
+    }
     if (!this.forum.subscribed) {
       this.forumService.subscribeToForum(this.forum.uuid).subscribe(() => {
         if (!this.forum.subscribed) {
@@ -28,6 +35,9 @@ export class ForumComponent implements OnInit {
   }
 
   unsubscribe() {
+    if (!this.auth.demandLogin()) {
+      return
+    }
     if (this.forum.subscribed) {
       this.forumService.unsubscribeToForum(this.forum.uuid).subscribe(() => {
         if (this.forum.subscribed) {

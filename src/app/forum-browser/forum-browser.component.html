@@ -41,13 +41,13 @@
   <div class="modal-body dark">
     <form>
       <div class="form-group">
-        <label for="nameTextArea">Forum Name</label>
-        <textarea class="form-control darkest" id="nameTextArea" rows="3" [(ngModel)]="newName" name="nameTextArea"
-          (keydown.enter)="c('create');false"></textarea>
+        <label for="nameInput">Forum Name</label>
+        <input class="form-control darkest" id="nameInput" maxlength="31" [(ngModel)]="newName" name="nameInput"
+          (keydown.enter)="c('create');false">
       </div>
       <div class="form-group">
         <label for="descriptionTextArea">Description</label>
-        <textarea class="form-control darkest" id="descriptionTextArea" rows="3" [(ngModel)]="newDescription"
+        <textarea class="form-control darkest" id="descriptionTextArea" maxlength="2047" rows="3" [(ngModel)]="newDescription"
           name="descriptionTextArea" (keydown.enter)="c('create');false"
           placeholder="What is your forum about?"></textarea>
       </div>

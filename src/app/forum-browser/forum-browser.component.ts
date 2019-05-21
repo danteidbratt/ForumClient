@@ -3,6 +3,7 @@ import { ForumService } from '../services/forum.service';
 import { Forum } from '../misc/models';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { AuthService } from '../services/auth.service';
 
 @Component({
   selector: 'app-forum-browser',
@@ -22,6 +23,7 @@ export class ForumBrowserComponent implements OnInit {
 
   constructor(
     private forumService: ForumService,
+    private auth: AuthService,
     private route: ActivatedRoute,
     private router: Router,
     private modal: NgbModal
@@ -48,6 +50,9 @@ export class ForumBrowserComponent implements OnInit {
   }
 
   openCreateForumModal() {
+    if (!this.auth.demandLogin()) {
+      return
+    }
     this.modal.open(this.createForumModal, { centered: true })
       .result.then(
         result => {
@@ -55,10 +60,11 @@ export class ForumBrowserComponent implements OnInit {
             this.createForum()
           }
         },
-        reason => {
-          console.log('Canceled forum creation')
-        }
-      )
+        () => { }
+      ).then(() => {
+        this.newName = ''
+        this.newDescription = ''
+      })
   }
 
   createForum() {
@@ -66,13 +72,11 @@ export class ForumBrowserComponent implements OnInit {
       this.newName = this.newName.trim()
       this.newDescription = this.newDescription.trim()
       if (this.newName.length > 0 && this.newDescription.length > 0) {
-        this.forumService.createForum(this.newName, this.newDescription).subscribe(data => 
+        this.forumService.createForum(this.newName, this.newDescription).subscribe(data =>
           this.forums.unshift(data)
         )
       }
     }
-    this.newName = null
-    this.newDescription = null
   }
 
   setSortType(type: string) {

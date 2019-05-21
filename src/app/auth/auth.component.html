@@ -11,7 +11,7 @@
 
 <div *ngIf="authUser != null">
   <div class="row w-100 p-0 m-0 justify-content-end">
-    <span class="col-5 text-right">Logged in as: {{authUser.name}}</span>
+    <span class="col-5 text-right">Logged in as: <a href="user/{{authUser.uuid}}">{{authUser.name}}</a></span>
     <button class="col-2 p-0 mx-2 btn btn-sm" (click)="logOut()">
       Log Out
     </button>
@@ -57,12 +57,12 @@
   <div class="modal-body dark">
     <div class="form-group">
       <label for="username1">Username</label>
-      <input type="text" class="form-control" id="username1" [(ngModel)]="createUsername" placeholder="Enter username"
+      <input type="text" class="form-control" id="username1" maxlength="31" [(ngModel)]="createUsername" placeholder="Enter username"
         name="loginUsernameInput">
     </div>
     <div class="form-group">
       <label for="password1">Password</label>
-      <input type="password" class="form-control" id="password1" [(ngModel)]="createPassword"
+      <input type="password" class="form-control" id="password1" maxlength="255" [(ngModel)]="createPassword"
         placeholder="Enter password" name="loginPasswordInput" (keydown.enter)="c('signup');false">
     </div>
   </div>

@@ -30,6 +30,11 @@ const routes: Routes = [
     component: ProfileComponent
   },
   {
+    path: 'user/:userUuid',
+    redirectTo: 'user/:userUuid/submissions/posts/new',
+    pathMatch: 'full'
+  },
+  {
     path: 'forums/:filter/:sortType',
     component: ForumBrowserComponent
   },

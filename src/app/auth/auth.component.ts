@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, Output, EventEmitter } from '@angular/core';
 import { AuthService } from '../services/auth.service';
 import { UserService } from '../services/user.service';
 import { AuthUser } from '../misc/models';
@@ -20,33 +20,30 @@ export class AuthComponent implements OnInit {
   private authUser: AuthUser
 
   constructor(
-    private authService: AuthService,
+    private auth: AuthService,
     private userService: UserService,
     private modal: NgbModal
   ) { }
 
   ngOnInit() {
-    this.authService.authUser.subscribe(data => {
+    this.auth.user.subscribe(data => {
       this.authUser = data
     })
+    this.auth.loginTrigger.subscribe(() => this.openLoginModal())
   }
 
   login() {
-    this.authService.login(this.loginUsername, this.loginPassword).subscribe(data => {
-      this.authService.setUser(data)
+    this.auth.login(this.loginUsername, this.loginPassword).subscribe(data => {
+      this.auth.setUser(data)
     })
-    this.loginUsername = ''
-    this.loginPassword = ''
   }
 
   createUser() {
     let username = this.createUsername
     let password = this.createPassword
     this.userService.createUser(username, password).subscribe(resp =>
-      this.authService.login(username, password).subscribe(data => this.authService.setUser(data))
+      this.auth.login(username, password).subscribe(data => this.auth.setUser(data))
     )
-    this.createUsername = ''
-    this.createPassword = ''
   }
 
   openLoginModal() {
@@ -59,8 +56,11 @@ export class AuthComponent implements OnInit {
             this.openSignupModal()
           }
         },
-        reason => console.log('Login canceled')
-      )
+        () => { }
+      ).then(() => {
+        this.loginUsername = ''
+        this.loginPassword = ''
+      })
   }
 
   openSignupModal() {
@@ -72,13 +72,16 @@ export class AuthComponent implements OnInit {
           } else if (result == 'login') {
             this.openLoginModal()
           }
-         },
-        reason => console.log('Signup canceled')
-      )
+        },
+        () => { }
+      ).then(() => {
+        this.createUsername = ''
+        this.createPassword = ''
+      })
   }
 
   logOut() {
-    this.authService.logOut()
+    this.auth.logOut()
   }
 
 }

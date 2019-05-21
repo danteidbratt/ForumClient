@@ -16,4 +16,5 @@ export class AppComponent {
   goHome() {
     this.router.navigateByUrl('')
   }
+
 }

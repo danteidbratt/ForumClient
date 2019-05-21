@@ -35,7 +35,7 @@
     <form>
       <div class="form-group">
         <label for="replyTextArea">Type your message</label>
-        <textarea class="form-control darkest" id="replyTextArea" rows="3" [(ngModel)]="reply" name="replyTextArea"
+        <textarea class="form-control darkest" id="replyTextArea" maxlength="2047" rows="3" [(ngModel)]="reply" name="replyTextArea"
           (keydown.enter)="c('send');false"></textarea>
       </div>
     </form>
