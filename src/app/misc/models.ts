@@ -34,6 +34,7 @@ export interface Post {
 
 export interface Comment {
     uuid: string,
+    postUuid: string,
     authorUuid: string,
     authorName: string,
     content: string,

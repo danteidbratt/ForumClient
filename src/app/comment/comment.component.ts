@@ -57,13 +57,13 @@ export class CommentComponent implements OnInit {
     const modalRef: NgbModalRef = this.modal.open(this.replyModal, { centered: true })
     modalRef.result
       .then(
-        result => console.log(result),
-        reason => {
-          if (reason == 'send') {
+        result => {
+          if (result == 'send') {
             this.sendReply()
-          } else {
-            console.log('Canceled reply')
           }
+        },
+        reason => {
+          console.log('Canceled reply')
         }
       )
   }
@@ -89,6 +89,7 @@ export class CommentComponent implements OnInit {
         this.comment.children.unshift(data)
       })
     }
+    this.replyContent = '';
   }
 
 }

@@ -1,8 +1,7 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { AuthService } from '../services/auth.service';
 import { UserService } from '../services/user.service';
-import { User, AuthUser } from '../misc/models';
-import { CookieService } from 'ngx-cookie-service';
+import { AuthUser } from '../misc/models';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
@@ -18,8 +17,7 @@ export class AuthComponent implements OnInit {
   private createPassword: string
   private loginUsername: string
   private loginPassword: string
-
-  private user: AuthUser
+  private authUser: AuthUser
 
   constructor(
     private authService: AuthService,
@@ -29,7 +27,7 @@ export class AuthComponent implements OnInit {
 
   ngOnInit() {
     this.authService.authUser.subscribe(data => {
-      this.user = data
+      this.authUser = data
     })
   }
 
@@ -57,6 +55,8 @@ export class AuthComponent implements OnInit {
         result => {
           if (result == 'login') {
             this.login()
+          } else if (result == 'signup') {
+            this.openSignupModal()
           }
         },
         reason => console.log('Login canceled')
@@ -69,6 +69,8 @@ export class AuthComponent implements OnInit {
         result => {
           if (result == 'signup') {
             this.createUser()
+          } else if (result == 'login') {
+            this.openLoginModal()
           }
          },
         reason => console.log('Signup canceled')

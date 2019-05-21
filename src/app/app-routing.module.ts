@@ -26,6 +26,10 @@ const routes: Routes = [
     component: ProfileComponent
   },
   {
+    path: 'user/:userUuid/:category',
+    component: ProfileComponent
+  },
+  {
     path: 'forums/:filter/:sortType',
     component: ForumBrowserComponent
   },

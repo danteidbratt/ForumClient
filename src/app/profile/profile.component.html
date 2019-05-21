@@ -36,6 +36,7 @@
     <app-post *ngFor="let post of posts" [post]="post" class="col-12 p-0 m-0 py-2"></app-post>
   </div>
   <div *ngIf="comments" class="row p-4">
-    <app-comment id="comment" *ngFor="let comment of comments" [comment]="comment" class="col-12 p-0 m-0 my-2 p-2 darker"></app-comment>
+    <app-comment id="comment" *ngFor="let comment of comments" [comment]="comment"
+      class="col-12 p-0 m-0 my-2 p-2 darker" (click)="navigateToPost(comment.postUuid)"></app-comment>
   </div>
 </div>

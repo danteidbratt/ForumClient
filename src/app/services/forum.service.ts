@@ -55,7 +55,6 @@ export class ForumService {
 
   public unsubscribeToForum(forumUuid: string) {
     let url = `${this.baseUrl}/forums/${forumUuid}/subscriptions`
-    let body = {}
     let headers = new HttpHeaders()
       .set('Accept', 'application/json')
       .set('Authorization', this.auth.credentials)

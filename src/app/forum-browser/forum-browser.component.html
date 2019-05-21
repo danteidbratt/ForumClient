@@ -2,30 +2,29 @@
 
   <div id="feedNav" class="col-12 mt-3 px-3">
     <div class="row justify-content-between">
-      <div class="col-3 text-left">
+      <div class="col-4 text-left">
         <div class="row justify-content-center">
           <button *ngFor="let f of filterTypes" (click)="setFilter(f)" class="col-4 btn darkish p-0 px-1 mx-1"
             [class.selected]="filter == f">{{f}}</button>
         </div>
       </div>
-      <div class="col-3 text-center">
+      <div class="col-4 text-center">
         <div class="row justify-content-center">
           <button *ngFor="let s of sortTypes" (click)="setSortType(s)" class="col-3 btn darkish p-0 px-1 mx-1"
             [class.selected]="sortType == s">{{s}}</button>
         </div>
       </div>
-      <div class="col-3">
-        <div class="row justify-content-center">
-          <button (click)="openCreateForumModal()" class="col-8 btn btn-primary p-0 px-1 mx-1">Create Forum</button>
-        </div>
-      </div>
-      <div class="col-3">
+      <div class="col-4">
         <div class="row justify-content-center">
           <button class="col-7 btn darkish p-0 m-0" (click)="navigateToPosts()">
             Browse Posts
           </button>
         </div>
       </div>
+    </div>
+    <div class="row justify-content-center">
+      <button (click)="openCreateForumModal()" class="col-3 m-4 btn btn-primary">Create New Forum</button>
+
     </div>
   </div>
   <div class="col-12">

@@ -17,11 +17,11 @@
       <button (click)="openSubmitPostModal()" class="col-12 my-2 btn btn-primary">Submit Post</button>
       <p id="description" class="col-12 text-center darkish my-2 py-3">{{forum.description}}</p>
       <span class="col-12 text-center">Created by
-        <a href="user/{{forum.authorUuid}}">
+        <a href="user/{{forum.authorUuid}}/submissions/posts/new">
           {{forum.authorName}}
         </a>
       </span>
-      <span class="col-12 text-center">Created {{forum.timeAgo}}</span>
+      <span class="col-12 text-center">{{forum.timeAgo}}</span>
     </div>
   </div>
 </div>

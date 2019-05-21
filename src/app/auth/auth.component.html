@@ -1,4 +1,4 @@
-<div *ngIf="user == null">
+<div *ngIf="authUser == null">
   <div class="row w-100 px-2 m-0 justify-content-end">
     <button class="col-3 p-0 m-0 btn text-right" (click)="openLoginModal()">
       Log in
@@ -9,9 +9,9 @@
   </div>
 </div>
 
-<div *ngIf="user != null">
+<div *ngIf="authUser != null">
   <div class="row w-100 p-0 m-0 justify-content-end">
-    <span class="col-5 text-right">Logged in as: {{user.name}}</span>
+    <span class="col-5 text-right">Logged in as: {{authUser.name}}</span>
     <button class="col-2 p-0 mx-2 btn btn-sm" (click)="logOut()">
       Log Out
     </button>
@@ -34,32 +34,50 @@
         placeholder="Enter password" name="loginPasswordInput" (keydown.enter)="c('login');false">
     </div>
   </div>
-  <div class="modal-footer justify-content-center darker">
-    <button type="button" class="btn btn-primary col-4" (click)="c('login')">
-      Enter
-    </button>
+  <div class="modal-footer darker">
+    <div class="row w-100">
+      <div class="col-12">
+        <div class="row justify-content-center">
+          <button type="button" class="btn btn-primary col-4" (click)="c('login')">
+            Enter
+          </button>
+        </div>
+      </div>
+      <div class="col-12 text-center mt-2">
+        <span>Don't have an account? <a (click)="c('signup')">Sign up</a></span>
+      </div>
+    </div>
   </div>
 </ng-template>
 
 <ng-template #signupModal let-d="dismiss" let-c="close">
-    <div class="modal-header darker row">
-      <h2 class="modal-title col-12 text-center" id="modal-basic-title">Create Account</h2>
+  <div class="modal-header darker row">
+    <h2 class="modal-title col-12 text-center" id="modal-basic-title">Create Account</h2>
+  </div>
+  <div class="modal-body dark">
+    <div class="form-group">
+      <label for="username1">Username</label>
+      <input type="text" class="form-control" id="username1" [(ngModel)]="createUsername" placeholder="Enter username"
+        name="loginUsernameInput">
     </div>
-    <div class="modal-body dark">
-      <div class="form-group">
-        <label for="username1">Username</label>
-        <input type="text" class="form-control" id="username1" [(ngModel)]="createUsername" placeholder="Enter username"
-          name="loginUsernameInput">
+    <div class="form-group">
+      <label for="password1">Password</label>
+      <input type="password" class="form-control" id="password1" [(ngModel)]="createPassword"
+        placeholder="Enter password" name="loginPasswordInput" (keydown.enter)="c('signup');false">
+    </div>
+  </div>
+  <div class="modal-footer justify-content-center darker">
+    <div class="row w-100">
+      <div class="col-12">
+        <div class="row justify-content-center">
+          <button type="button" class="btn btn-primary col-4" (click)="c('signup')">
+            Sign up
+          </button>
+        </div>
       </div>
-      <div class="form-group">
-        <label for="password1">Password</label>
-        <input type="password" class="form-control" id="password1" [(ngModel)]="createPassword"
-          placeholder="Enter password" name="loginPasswordInput" (keydown.enter)="c('signup');false">
+      <div class="col-12 text-center mt-2">
+        <span>Already have an account? <a (click)="c('login')">Log in</a></span>
       </div>
     </div>
-    <div class="modal-footer justify-content-center darker">
-      <button type="button" class="btn btn-primary col-4" (click)="c('signup')">
-        Sign up
-      </button>
-    </div>
-  </ng-template>
+  </div>
+</ng-template>

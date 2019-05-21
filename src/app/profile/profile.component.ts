@@ -47,21 +47,18 @@ export class ProfileComponent implements OnInit {
 
   setCategory(category: string) {
     this.category = category
+    this.router.navigateByUrl(`user/${this.userUuid}/${this.category}`)
     this.posts = null
     this.comments = null
-    this.submissionType = null;
   }
 
   setSubmissionType(submissionType: string) {
-    this.submissionType = submissionType;
-    this.sortType = 'new'
-    let url = `user/${this.userUuid}/${this.category}/${this.submissionType}/${this.sortType}`
+    let url = `user/${this.userUuid}/${this.category}/${submissionType}/new`
     this.router.navigateByUrl(url)
   }
 
   setSortType(sortType: string) {
-    this.sortType = sortType
-    let url = `user/${this.userUuid}/${this.category}/${this.submissionType}/${this.sortType}`
+    let url = `user/${this.userUuid}/${this.category}/${this.submissionType}/${sortType}`
     this.router.navigateByUrl(url)
   }
 
@@ -93,6 +90,10 @@ export class ProfileComponent implements OnInit {
     } else if (this.category == 'likes') {
       return this.commentService.getLikedComments(this.userUuid, this.sortType.toUpperCase())
     }
+  }
+
+  navigateToPost(postUuid: string) {
+    this.router.navigateByUrl(`post/${postUuid}/hot`)
   }
 
 }

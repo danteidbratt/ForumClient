@@ -45,7 +45,7 @@ export class ForumViewComponent implements OnInit {
   }
 
   loadPosts() {
-    this.postService.getPostsByForum(this.forumUuid, this.sortType).subscribe(data => this.posts = data)
+    this.postService.getPostsByForum(this.forumUuid, this.sortType.toUpperCase()).subscribe(data => this.posts = data)
   }
 
   setSortType(type: string) {
